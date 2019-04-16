@@ -35,12 +35,8 @@ python app/exporter.py example/config.yml
 #### Using docker
 
 ```
-docker run -p 9158:9158 -v $(pwd)/example/config.yml:/etc/prometheus-jsonpath-exporter/config.yml sunbird/prometheus-jsonpath-exporter /etc/prometheus-jsonpath-exporter/config.yml
+docker run -p 9158:9158 -v $(pwd)/example/config.yml:/etc/prometheus-jsonpath-exporter/config.yml  dalongrong/promethues-jmespath-exporter /etc/prometheus-jsonpath-exporter/config.yml
 ```
-
-### JsonPath Syntax
-
-This exporter uses [objectpath](http://objectpath.org) python library. The syntax is documented [here](http://objectpath.org/reference.html)
 
 ### Example
 
