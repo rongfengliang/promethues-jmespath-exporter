@@ -1,6 +1,7 @@
-# prometheus-jsonpath-exporter
+# prometheus-jmespath-exporter
 
-Converts json data from a http url into prometheus metrics using jsonpath
+
+> fork from https://github.com/project-sunbird/prometheus-jsonpath-exporter && change it with jemspath for metric convert
 
 
 ### Config
@@ -13,10 +14,10 @@ metric_name_prefix: kong_cluster # All metric names will be prefixed with this v
 metrics:
 - name: total_nodes # Final metric name will be kong_cluster_total_nodes
   description: Total number of nodes in kong cluster
-  path: $.total
+  path: total
 - name: alive_nodes # Final metric name will be kong_cluster_alive_nodes
   description: Number of live nodes in kong cluster
-  path: count($.data[@.status is "alive"])
+  path:  length(data[*].address)
 ```
 
 See the example below to understand how the json data and metrics will look for this config

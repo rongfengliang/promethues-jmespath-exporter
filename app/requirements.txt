@@ -1,4 +1,4 @@
 pytz
-objectpath
 prometheus_client
+jmespath
 pyYAML

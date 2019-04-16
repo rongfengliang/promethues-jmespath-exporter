@@ -7,9 +7,8 @@ from prometheus_client import start_http_server
 from prometheus_client.core import GaugeMetricFamily, REGISTRY
 import argparse
 import yaml
-from objectpath import Tree
+import jmespath
 import logging
-
 DEFAULT_PORT=9158
 DEFAULT_LOG_LEVEL='info'
 
@@ -20,12 +19,12 @@ class JsonPathCollector(object):
   def collect(self):
     config = self._config
     result = json.loads(urllib2.urlopen(config['json_data_url'], timeout=10).read())
-    result_tree = Tree(result)
     for metric_config in config['metrics']:
       metric_name = "{}_{}".format(config['metric_name_prefix'], metric_config['name'])
       metric_description = metric_config.get('description', '')
       metric_path = metric_config['path']
-      value = result_tree.execute(metric_path)
+      parsed = jmespath.compile(metric_path)
+      value =jmespath.search(metric_path,result)
       logging.debug("metric_name: {}, value for '{}' : {}".format(metric_name, metric_path, value))
       metric = GaugeMetricFamily(metric_name, metric_description, value=value)
       yield metric
